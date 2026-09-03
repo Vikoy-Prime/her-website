@@ -61,6 +61,22 @@
             display: block;
         }
 
+        .logo-text {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 15px;
+                margin-left: 6px;
+            }
+        }
+
         .nav-links {
             display: flex;
             gap: 25px;
@@ -193,7 +209,7 @@
         }
 
         .hero-image img {
-            max-width: 620px;
+            max-width: 480px;
             width: 100%;
             height: auto;
             display: block;
@@ -564,7 +580,7 @@
             }
 
             .hero-image img {
-                max-width: 520px;
+                max-width: 380px;
             }
         }
     </style>
@@ -575,6 +591,7 @@
     <nav class="navbar">
         <a href="#" class="logo" aria-label="KymGio Salon">
             <img src="images/kymgio-logo.png" alt="KymGio Salon Logo">
+            <span class="logo-text">KymGio Salon</span>
         </a>
         <ul class="nav-links">
             <li><a href="#hero" class="active">Home</a></li>
@@ -604,23 +621,23 @@
         </div>
         <div class="hero-categories">
             <div class="cat-item">
-                <img src="images/Hair.jpg" alt="Hair" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">
+                <img src="images/Hair.jpg" alt="Hair" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
                 <span>Hair</span>
             </div>
             <div class="cat-item">
-                <img src="images/Toupee.jpg" alt="Toupee" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">
+                <img src="images/Toupee.jpg" alt="Toupee" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
                 <span>Toupee</span>
             </div>
             <div class="cat-item">
-                <img src="images/Nails.jpg" alt="Nails" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">
+                <img src="images/Nails.jpg" alt="Nails" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
                 <span>Nails</span>
             </div>
             <div class="cat-item">
-                <img src="images/Foot Spa.jpg" alt="Foot Spa" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">
+                <img src="images/Foot Spa.jpg" alt="Foot Spa" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
                 <span>Foot Spa</span>
             </div>
             <div class="cat-item">
-                <img src="images/Haircut Men.jpg" alt="Men Haircut" style="width:100px;height:100px;object-fit:cover;border-radius:6px;">
+                <img src="images/Haircut Men.jpg" alt="Men Haircut" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
                 <span>Men Haircut</span>
             </div>
         </div>
