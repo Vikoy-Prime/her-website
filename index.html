@@ -239,6 +239,17 @@
             margin-bottom: 10px;
         }
 
+        .cat-photo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .cat-item span {
             display: block;
             font-size: 12px;
@@ -561,7 +572,9 @@
             }
             .hero-categories {
                 flex-wrap: wrap;
+                justify-content: center;
             }
+
             .nav-links {
                 display: none;
             }
@@ -574,6 +587,15 @@
                 padding: 8px 10px;
             }
 
+            .cat-photo {
+                width: 110px;
+                height: 110px;
+            }
+
+            .cat-item {
+                flex: 0 1 30%;
+            }
+
             .logo img {
                 width: 125px;
                 height: 50px;
@@ -581,6 +603,34 @@
 
             .hero-image img {
                 max-width: 380px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                flex-wrap: wrap;
+                row-gap: 12px;
+                justify-content: center;
+                padding: 15px 5%;
+            }
+
+            .logo {
+                flex: 1 1 100%;
+                justify-content: center;
+            }
+
+            .nav-actions {
+                flex: 1 1 100%;
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .cat-photo {
+                width: 90px;
+                height: 90px;
             }
         }
     </style>
@@ -621,23 +671,23 @@
         </div>
         <div class="hero-categories">
             <div class="cat-item">
-                <img src="images/Hair.jpg" alt="Hair" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
+                <img src="images/Hair.jpg" alt="Hair" class="cat-photo">
                 <span>Hair</span>
             </div>
             <div class="cat-item">
-                <img src="images/Toupee.jpg" alt="Toupee" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
+                <img src="images/Toupee.jpg" alt="Toupee" class="cat-photo">
                 <span>Toupee</span>
             </div>
             <div class="cat-item">
-                <img src="images/Nails.jpg" alt="Nails" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
+                <img src="images/Nails.jpg" alt="Nails" class="cat-photo">
                 <span>Nails</span>
             </div>
             <div class="cat-item">
-                <img src="images/Foot Spa.jpg" alt="Foot Spa" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
+                <img src="images/Foot Spa.jpg" alt="Foot Spa" class="cat-photo">
                 <span>Foot Spa</span>
             </div>
             <div class="cat-item">
-                <img src="images/Haircut Men.jpg" alt="Men Haircut" style="width:200px;height:200px;object-fit:cover;border-radius:6px;">
+                <img src="images/Haircut Men.jpg" alt="Men Haircut" class="cat-photo">
                 <span>Men Haircut</span>
             </div>
         </div>
