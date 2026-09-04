@@ -3,1208 +3,1233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>KymGio Salon</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-
-        /* =========================================
-           GLOBAL
-        ========================================= */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-dark: #ffffff;
+            --bg-card: #f7f7f7;
+            --accent-gold: #e5a970;
+            --accent-gold-hover: #d4955b;
+            --text-light: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #dddddd;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: "Montserrat", sans-serif;
-            background: #11100f;
-            color: white;
-            overflow-x: hidden;
-
-            transition:
-                background 0.3s ease,
-                color 0.3s ease;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        button {
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-
-        /* =========================================
-           HEADER
-        ========================================= */
-
-        .header {
-            width: 100%;
-            background: #0c0b0b;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-
-            position: relative;
-            z-index: 100;
-        }
-
-        .header-inner {
-            max-width: 1400px;
-            margin: auto;
-
-            padding: 18px 55px;
-
+        .logo {
             display: flex;
             align-items: center;
+            text-decoration: none;
+            color: var(--accent-gold);
+            font-family: var(--font-serif);
+            font-weight: bold;
+        }
+
+        .logo img {
+            width: 150px;
+            height: 58px;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+        }
+
+        .logo-text {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 15px;
+                margin-left: 6px;
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .btn {
+            background-color: var(--accent-gold);
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-gold-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-gold);
+            color: #ffffff;
+        }
+
+        /* Layout Structure */
+        section {
+            padding: 70px 8%;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--accent-gold);
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-gold);
+        }
+
+        /* Placeholder graphic containers */
+        .svg-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f2f2f2;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        /* Page 1: Hero Page */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            min-height: 75vh;
+            gap: 40px;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        .hero-image {
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 480px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+            filter: drop-shadow(0 18px 25px rgba(0, 0, 0, 0.18));
+        }
+
+        .hero-categories {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .cat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .cat-item svg {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        .cat-photo {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cat-item span {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Page 2: Promo & Services */
+        .promo-banner {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .badge {
+            background: rgba(229, 169, 112, 0.15);
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 4px 12px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .promo-text h3 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .promo-text p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
             justify-content: space-between;
         }
 
-
-        /* =========================================
-           LOGO
-        ========================================= */
-
-        .logo {
-            width: 145px;
-            height: auto;
-            object-fit: contain;
-        }
-
-
-        /* =========================================
-           SALON NAME
-        ========================================= */
-
-        .brand-name {
-            font-family: "Cormorant Garamond", serif;
-
-            font-size: 32px;
-            font-weight: 700;
-
-            color: #ffffff;
-
-            text-align: center;
-            white-space: nowrap;
-        }
-
-
-        /* =========================================
-           HAMBURGER
-        ========================================= */
-
-        .hamburger {
-            width: 48px;
-            height: 48px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            gap: 6px;
-
-            background: transparent;
-            border: none;
-        }
-
-        .hamburger span {
-            width: 36px;
-            height: 4px;
-
-            background: #eaa15f;
-
-            border-radius: 5px;
-
-            transition: 0.3s ease;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-
-        /* =========================================
-           HEADER ACTIONS
-        ========================================= */
-
-        .header-actions {
-            max-width: 1400px;
-            margin: auto;
-
-            padding: 0 55px 20px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 28px;
-        }
-
-
-        /* =========================================
-           THEME BUTTON
-        ========================================= */
-
-        .theme-btn {
-            min-width: 175px;
-            height: 70px;
-
-            background: #11100f;
-
-            border: 1px solid rgba(255,255,255,0.12);
-
-            border-radius: 8px;
-
-            color: white;
-
-            font-size: 20px;
-            font-weight: 500;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            gap: 10px;
-
-            transition: 0.3s ease;
-        }
-
-        .theme-btn:hover {
-            border-color: #eaa15f;
-        }
-
-        .sun {
-            font-size: 27px;
-        }
-
-
-        /* =========================================
-           HEADER BOOK BUTTON
-        ========================================= */
-
-        .header-book {
-            height: 70px;
-
-            min-width: 400px;
-
-            padding: 0 40px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #e9a064;
-
-            color: white;
-
-            font-size: 21px;
-            font-weight: 700;
-
-            letter-spacing: 2px;
-
-            transition: 0.3s ease;
-        }
-
-        .header-book:hover {
-            transform: translateY(-2px);
-
-            background: #f1aa6d;
-        }
-
-
-        /* =========================================
-           MOBILE MENU
-        ========================================= */
-
-        .mobile-menu {
-            position: absolute;
-
-            top: 100%;
-
-            right: 0;
-
-            width: 280px;
-
-            background: #141313;
-
-            border: 1px solid rgba(255,255,255,0.08);
-
-            padding: 25px;
-
-            display: none;
-
-            flex-direction: column;
-
-            gap: 20px;
-        }
-
-        .mobile-menu.show {
-            display: flex;
-        }
-
-        .mobile-menu a {
-            font-size: 17px;
-
-            padding: 12px;
-
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-
-            transition: 0.2s;
-        }
-
-        .mobile-menu a:hover {
-            color: #e9a064;
-        }
-
-
-        /* =========================================
-           HERO
-        ========================================= */
-
-        .hero {
-            position: relative;
-
-            min-height: 1150px;
-
-            overflow: hidden;
-
-            background:
-                linear-gradient(
-                    rgba(44,40,37,0.78),
-                    rgba(44,40,37,0.82)
-                ),
-                url("images/hero-background.jpg");
-
-            background-size: cover;
-
-            background-position: center;
-        }
-
-
-        /* =========================================
-           DECORATIVE HAIR LINES
-        ========================================= */
-
-        .hero::after {
-            content: "";
-
-            position: absolute;
-
-            left: -10%;
-            right: -10%;
-
-            bottom: 160px;
-
-            height: 300px;
-
-            background:
-                radial-gradient(
-                    ellipse at center,
-                    transparent 45%,
-                    rgba(234,161,95,0.10) 46%,
-                    transparent 47%
-                );
-
-            opacity: 0.8;
-
-            pointer-events: none;
-        }
-
-
-        /* =========================================
-           SCISSOR / COMB DECORATION
-        ========================================= */
-
-        .tool-decoration {
-            position: absolute;
-
-            opacity: 0.18;
-
-            pointer-events: none;
-        }
-
-        .scissors {
-            left: -20px;
-            top: 30px;
-
-            width: 220px;
-
-            transform: rotate(-20deg);
-        }
-
-        .comb {
-            right: -30px;
-            top: 40px;
-
-            width: 330px;
-
-            transform: rotate(45deg);
-
-            opacity: 0.13;
-        }
-
-
-        /* =========================================
-           HERO CONTENT
-        ========================================= */
-
-        .hero-content {
-            position: relative;
-
-            z-index: 2;
-
+        .service-card svg {
             width: 100%;
+            height: 120px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
 
-            max-width: 900px;
+        .service-card h4 {
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-            margin: auto;
+        .service-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
 
-            padding:
+        /* Page 3: Gallery */
+        .gallery-filter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
 
-                205px
-                25px
-                0;
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 6px 18px;
+            font-size: 11px;
+            border-radius: 20px;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
 
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-gold);
+            color: #ffffff;
+            border-color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .gallery-item svg {
+            width: 100%;
+            height: 160px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        .gallery-photo {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            display: block;
+        }
+
+        /* Page 4: About Us & Location */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .features-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .feature-item {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+        }
+
+        .feature-item svg {
+            display: block;
+            margin: 0 auto 8px auto;
+            fill: var(--accent-gold);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .info-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .info-list svg {
+            fill: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        /* Page 5: Book Appointment / Contact */
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-light);
+            font-size: 12px;
+            color-scheme: light;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .hours-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 6px;
+            margin-top: 30px;
             text-align: center;
         }
 
-
-        /* =========================================
-           HERO TITLE
-        ========================================= */
-
-        .small-title {
-            font-family: "Cormorant Garamond", serif;
-
-            font-size: 52px;
-
-            font-weight: 500;
-
-            color: white;
-
-            line-height: 1;
+        .hours-box h4 {
+            color: var(--accent-gold);
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
 
-
-        .main-title {
-            margin-top: 20px;
-
-            font-family: "Cormorant Garamond", serif;
-
-            font-size: clamp(
-                70px,
-                8vw,
-                110px
-            );
-
-            font-style: italic;
-
-            font-weight: 700;
-
-            line-height: 0.95;
-
-            color: #eda162;
-
-            white-space: nowrap;
-        }
-
-
-        /* =========================================
-           DECORATIVE LINE
-        ========================================= */
-
-        .divider {
-            margin: 35px auto;
-
+        /* Footer */
+        footer {
+            padding: 30px 8%;
             display: flex;
-
+            justify-content: space-between;
             align-items: center;
-
-            justify-content: center;
-
-            gap: 20px;
+            background-color: #f5f5f5;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
         }
 
-        .divider-line {
-            width: 115px;
-
-            height: 2px;
-
-            background: #eaa15f;
+        .social-links {
+            display: flex;
+            gap: 15px;
         }
 
-        .scissor-icon {
-            font-size: 26px;
-
-            color: #eaa15f;
+        .social-links svg {
+            fill: var(--text-muted);
+            cursor: pointer;
+            transition: fill 0.3s;
         }
 
-
-        /* =========================================
-           DESCRIPTION
-        ========================================= */
-
-        .hero-description {
-            max-width: 650px;
-
-            margin: auto;
-
-            font-size: 26px;
-
-            line-height: 1.7;
-
-            color: rgba(255,255,255,0.75);
-
-            font-weight: 400;
+        .social-links svg:hover {
+            fill: var(--accent-gold);
         }
 
 
-        /* =========================================
-           HERO BOOK BUTTON
-        ========================================= */
+        /* Theme Toggle */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .hero-book {
-            margin-top: 45px;
-
-            padding: 18px 30px;
-
-            min-width: 295px;
-
-            height: 65px;
-
-            border: none;
-
-            border-radius: 7px;
-
-            background: #eaa064;
-
-            color: white;
-
-            font-size: 16px;
-
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 9px 14px;
+            border-radius: 4px;
+            font-size: 12px;
             font-weight: 700;
-
-            letter-spacing: 1.5px;
-
-            transition: 0.3s ease;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .hero-book:hover {
-            background: #f2aa6c;
-
-            transform: translateY(-3px);
+        .theme-toggle:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
-
-        /* =========================================
-           MAIN SALON IMAGE
-        ========================================= */
-
-        .hero-image {
-            position: absolute;
-
-            z-index: 3;
-
-            left: 50%;
-
-            bottom: -5px;
-
-            transform: translateX(-50%);
-
-            width: min(850px, 90%);
-
-            height: auto;
-
-            object-fit: contain;
+        body.dark-mode {
+            --bg-dark: #0b0b0b;
+            --bg-card: #141414;
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+            --border-color: #262626;
         }
 
-
-        /* =========================================
-           LIGHT MODE
-        ========================================= */
-
-        body.light-mode {
-            background: #f4f1ee;
-
-            color: #222;
+        body.dark-mode .navbar {
+            background-color: #111111;
         }
 
-        body.light-mode .header {
-            background: #ffffff;
-
-            border-color: rgba(0,0,0,0.08);
+        body.dark-mode footer {
+            background-color: #050505;
         }
 
-        body.light-mode .brand-name {
-            color: #222;
+        body.dark-mode .svg-container {
+            background-color: #1a1a1a;
         }
 
-        body.light-mode .theme-btn {
-            background: #ffffff;
-
-            color: #222;
-
-            border-color: rgba(0,0,0,0.12);
+        body.dark-mode .promo-banner,
+        body.dark-mode .service-card,
+        body.dark-mode .form-control,
+        body.dark-mode .hours-box {
+            background-color: var(--bg-card);
         }
 
-        body.light-mode .mobile-menu {
-            background: white;
-
-            color: #222;
+        body.dark-mode .theme-toggle {
+            color: var(--text-light);
         }
 
-        body.light-mode .hero {
-            background:
-                linear-gradient(
-                    rgba(245,241,237,0.72),
-                    rgba(245,241,237,0.78)
-                ),
-                url("images/hero-background.jpg");
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .hero, .promo-banner, .about-grid, .location-grid, .booking-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-grid, .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-categories {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
 
-            color: #222;
-        }
-
-        body.light-mode .small-title {
-            color: #222;
-        }
-
-        body.light-mode .hero-description {
-            color: rgba(30,30,30,0.70);
-        }
-
-
-        /* =========================================
-           DESKTOP
-        ========================================= */
-
-        @media (min-width: 900px) {
-
-            .hamburger {
+            .nav-links {
                 display: none;
             }
 
-            .header {
-                display: flex;
-
-                align-items: center;
-
-                justify-content: space-between;
-
-                padding: 15px 50px;
+            .nav-actions {
+                gap: 8px;
             }
 
-            .header-inner {
-                padding: 0;
-
-                width: 100%;
-
-                max-width: none;
+            .theme-toggle {
+                padding: 8px 10px;
             }
 
-            .header-actions {
-                padding: 0;
-
-                margin-left: auto;
-
-                margin-right: 30px;
+            .cat-photo {
+                width: 110px;
+                height: 110px;
             }
 
-            .mobile-menu {
-                display: none !important;
+            .cat-item {
+                flex: 0 1 30%;
             }
 
-            .hero-content {
-                padding-top: 150px;
+            .logo img {
+                width: 125px;
+                height: 50px;
             }
 
+            .hero-image img {
+                max-width: 380px;
+            }
         }
 
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 899px) {
-
-            .header-inner {
-                padding: 18px 22px;
+        @media (max-width: 480px) {
+            .navbar {
+                flex-wrap: wrap;
+                row-gap: 12px;
+                justify-content: center;
+                padding: 15px 5%;
             }
 
             .logo {
-                width: 155px;
+                flex: 1 1 100%;
+                justify-content: center;
             }
 
-            .brand-name {
-                font-size: 29px;
+            .nav-actions {
+                flex: 1 1 100%;
+                justify-content: center;
             }
 
-            .header-actions {
-                padding: 0 20px 25px;
-
-                gap: 26px;
-            }
-
-            .theme-btn {
-                height: 70px;
-
-                min-width: 175px;
-
-                font-size: 20px;
-            }
-
-            .header-book {
-                min-width: 400px;
-            }
-
-            .hero {
-                min-height: 1100px;
-            }
-
-            .hero-content {
-                padding-top: 210px;
-
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .small-title {
-                font-size: 49px;
-            }
-
-            .main-title {
-                font-size: 75px;
-
-                white-space: normal;
-            }
-
-            .hero-description {
-                font-size: 25px;
-
-                line-height: 1.65;
-
-                max-width: 600px;
-            }
-
-            .hero-image {
-                width: 92%;
-
-                bottom: 0;
-            }
-
-            .scissors {
-                width: 180px;
-            }
-
-            .comb {
-                width: 260px;
-            }
-
-        }
-
-
-        /* =========================================
-           SMALL PHONES
-        ========================================= */
-
-        @media (max-width: 600px) {
-
-            .header-inner {
-                padding: 15px 18px 10px;
-            }
-
-            .logo {
-                width: 145px;
-            }
-
-            .brand-name {
-                font-size: 27px;
-            }
-
-            .hamburger {
-                width: 45px;
-            }
-
-            .hamburger span {
-                width: 34px;
-            }
-
-            .header-actions {
-                padding:
-
-                    8px
-                    18px
-                    20px;
-
-                gap: 26px;
-            }
-
-            .theme-btn {
-                min-width: 177px;
-
-                height: 70px;
-
-                font-size: 20px;
-            }
-
-            .header-book {
-                min-width: 0;
-
-                flex: 1;
-
-                height: 70px;
-
-                padding: 0 15px;
-
-                font-size: 17px;
-
-                letter-spacing: 1.7px;
-            }
-
-            .hero {
-                min-height: 1120px;
-            }
-
-            .hero-content {
-                padding-top: 205px;
-            }
-
-            .small-title {
-                font-size: 47px;
-            }
-
-            .main-title {
-                font-size: 66px;
-
-                line-height: 0.92;
-
-                margin-top: 18px;
-            }
-
-            .divider {
-                margin: 34px auto;
-            }
-
-            .divider-line {
-                width: 115px;
-            }
-
-            .hero-description {
-                font-size: 24px;
-
-                line-height: 1.7;
-            }
-
-            .hero-book {
-                margin-top: 45px;
-
-                min-width: 295px;
-
-                height: 64px;
-
-                font-size: 15px;
-            }
-
-            .hero-image {
-                width: 94%;
-
-                bottom: 0;
-            }
-
-            .scissors {
-                left: -40px;
-
-                top: 30px;
-
-                width: 175px;
-            }
-
-            .comb {
-                right: -70px;
-
-                top: 40px;
-
-                width: 270px;
-            }
-
-        }
-
-
-        /* =========================================
-           EXTRA SMALL PHONES
-        ========================================= */
-
-        @media (max-width: 390px) {
-
-            .logo {
-                width: 120px;
-            }
-
-            .brand-name {
-                font-size: 23px;
-            }
-
-            .hamburger span {
-                width: 30px;
-
-                height: 3px;
-            }
-
-            .theme-btn {
-                min-width: 130px;
-
+            .logo-text {
                 font-size: 16px;
             }
 
-            .header-book {
-                font-size: 14px;
+            .cat-photo {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        /* =========================================================
+           KYMGIO SALON — SUBTLE SALON-THEMED BACKGROUND
+           ========================================================= */
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse at 0% 0%, rgba(229, 169, 112, 0.22) 0%, transparent 35%),
+                radial-gradient(ellipse at 100% 15%, rgba(224, 190, 153, 0.20) 0%, transparent 34%),
+                radial-gradient(ellipse at 85% 85%, rgba(229, 169, 112, 0.16) 0%, transparent 38%),
+                radial-gradient(ellipse at 15% 70%, rgba(247, 225, 204, 0.22) 0%, transparent 36%),
+                linear-gradient(120deg, #ffffff 0%, #fff9f3 38%, #f8eee3 72%, #fffaf6 100%);
+            background-attachment: fixed;
+        }
+
+        /* Keeps the decorative artwork behind all website content */
+        .salon-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .salon-background svg {
+            position: absolute;
+            fill: none;
+            stroke: #4a4a4a;
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.3s ease, opacity 0.3s ease;
+        }
+
+        .salon-bg-scissors-left {
+            width: 220px;
+            left: -35px;
+            top: 155px;
+            opacity: 0.18;
+            transform: rotate(-18deg);
+        }
+
+        .salon-bg-comb-right {
+            width: 245px;
+            right: -45px;
+            top: 180px;
+            opacity: 0.15;
+            transform: rotate(14deg);
+        }
+
+        .salon-bg-hair-left {
+            width: 300px;
+            left: -80px;
+            bottom: 7%;
+            opacity: 0.12;
+        }
+
+        .salon-bg-hair-right {
+            width: 330px;
+            right: -85px;
+            bottom: 18%;
+            opacity: 0.12;
+            transform: rotate(-8deg);
+        }
+
+        .salon-bg-small-scissors {
+            width: 120px;
+            right: 18%;
+            top: 44%;
+            opacity: 0.08;
+            transform: rotate(25deg);
+        }
+
+        /* Let the gradient show through the sections */
+        section {
+            position: relative;
+            z-index: 1;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,249,243,0.18));
+        }
+
+        #hero {
+            background:
+                radial-gradient(circle at 82% 42%, rgba(229,169,112,0.14), transparent 30%),
+                linear-gradient(120deg, rgba(255,255,255,0.42), rgba(248,238,227,0.24));
+        }
+
+        #promos {
+            background:
+                radial-gradient(circle at 10% 20%, rgba(229,169,112,0.10), transparent 25%),
+                linear-gradient(180deg, rgba(255,255,255,0.30), rgba(250,241,232,0.28));
+        }
+
+        #gallery {
+            background:
+                radial-gradient(circle at 90% 70%, rgba(229,169,112,0.09), transparent 28%),
+                rgba(255,255,255,0.18);
+        }
+
+        #about {
+            background:
+                radial-gradient(circle at 8% 80%, rgba(229,169,112,0.10), transparent 28%),
+                linear-gradient(135deg, rgba(255,255,255,0.25), rgba(248,238,227,0.24));
+        }
+
+        #contact {
+            background:
+                radial-gradient(circle at 90% 15%, rgba(229,169,112,0.12), transparent 28%),
+                linear-gradient(180deg, rgba(255,255,255,0.22), rgba(248,238,227,0.28));
+        }
+
+        .navbar,
+        footer {
+            position: relative;
+            z-index: 10;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .promo-banner,
+        .service-card,
+        .hours-box,
+        .form-control {
+            background: rgba(247, 247, 247, 0.78);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(80, 55, 35, 0.08);
+            border-color: rgba(229, 169, 112, 0.55);
+        }
+
+        /* Dark-mode version */
+        body.dark-mode {
+            background:
+                radial-gradient(ellipse at 0% 0%, rgba(229,169,112,0.16), transparent 32%),
+                radial-gradient(ellipse at 100% 15%, rgba(229,169,112,0.12), transparent 30%),
+                radial-gradient(ellipse at 85% 85%, rgba(229,169,112,0.09), transparent 35%),
+                linear-gradient(125deg, #080808 0%, #12100e 48%, #1b1511 100%);
+        }
+
+        body.dark-mode .salon-background svg {
+            stroke: #f2f2f2;
+        }
+
+        body.dark-mode section {
+            background:
+                linear-gradient(180deg, rgba(18,16,15,0.35), rgba(11,11,11,0.18));
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(17, 17, 17, 0.90);
+        }
+
+        body.dark-mode .promo-banner,
+        body.dark-mode .service-card,
+        body.dark-mode .hours-box,
+        body.dark-mode .form-control {
+            background: rgba(20, 20, 20, 0.82);
+        }
+
+        @media (max-width: 900px) {
+            .salon-bg-scissors-left {
+                width: 150px;
+                left: -55px;
+                opacity: 0.065;
             }
 
-            .hero-content {
-                padding-top: 190px;
+            .salon-bg-comb-right {
+                width: 170px;
+                right: -65px;
+                opacity: 0.06;
             }
 
-            .small-title {
-                font-size: 40px;
+            .salon-bg-hair-left,
+            .salon-bg-hair-right,
+            .salon-bg-small-scissors {
+                opacity: 0.035;
             }
-
-            .main-title {
-                font-size: 56px;
-            }
-
-            .hero-description {
-                font-size: 20px;
-            }
-
-            .hero-book {
-                min-width: 260px;
-            }
-
         }
 
     </style>
 </head>
-
-
 <body>
 
 
-    <!-- =====================================
-         HEADER
-    ====================================== -->
+    <!-- SUBTLE SALON-THEMED DECORATIVE BACKGROUND -->
+    <div class="salon-background" aria-hidden="true">
+        <!-- Large scissors -->
+        <svg class="salon-bg-scissors-left" viewBox="0 0 220 220">
+            <circle cx="55" cy="150" r="30"/>
+            <circle cx="115" cy="150" r="30"/>
+            <path d="M75 132 L174 42"/>
+            <path d="M95 132 L174 82"/>
+            <path d="M174 42 L198 20"/>
+            <path d="M174 82 L198 104"/>
+            <path d="M86 151 L174 42"/>
+        </svg>
 
-    <header class="header">
+        <!-- Comb -->
+        <svg class="salon-bg-comb-right" viewBox="0 0 245 180">
+            <path d="M28 45 Q35 25 55 30 L220 82 Q235 87 228 103 L205 150 Q200 162 187 157 L35 105 Q18 99 22 82 Z"/>
+            <path d="M58 39 L43 85"/>
+            <path d="M75 44 L60 91"/>
+            <path d="M92 49 L77 96"/>
+            <path d="M109 54 L94 102"/>
+            <path d="M126 59 L111 107"/>
+            <path d="M143 64 L128 112"/>
+            <path d="M160 69 L145 117"/>
+            <path d="M177 74 L162 122"/>
+            <path d="M194 79 L179 127"/>
+        </svg>
 
-        <div class="header-inner">
+        <!-- Flowing hair strands -->
+        <svg class="salon-bg-hair-left" viewBox="0 0 300 260">
+            <path d="M250 15 C165 35 190 90 115 115 C55 135 90 205 10 245"/>
+            <path d="M270 35 C185 55 210 105 135 135 C75 160 105 215 30 258"/>
+            <path d="M285 62 C205 78 225 125 150 154 C105 173 125 225 60 260"/>
+            <path d="M235 78 C175 100 185 135 125 165 C90 183 100 220 55 240"/>
+        </svg>
 
-            <!-- LOGO -->
-            <img
-                src="images/logo.png"
-                class="logo"
-                alt="KymGio Salon Logo"
-            >
+        <svg class="salon-bg-hair-right" viewBox="0 0 330 280">
+            <path d="M20 20 C120 45 90 110 185 135 C255 154 215 225 320 265"/>
+            <path d="M5 48 C105 72 75 135 170 160 C240 180 200 245 305 278"/>
+            <path d="M35 80 C120 100 105 155 185 180 C235 196 225 245 285 270"/>
+            <path d="M70 35 C135 62 125 112 195 138 C240 155 235 205 290 235"/>
+        </svg>
 
+        <!-- Small scissors accent -->
+        <svg class="salon-bg-small-scissors" viewBox="0 0 120 120">
+            <circle cx="34" cy="83" r="17"/>
+            <circle cx="68" cy="83" r="17"/>
+            <path d="M45 70 L100 18"/>
+            <path d="M57 70 L100 42"/>
+        </svg>
+    </div>
 
-            <!-- NAME -->
-            <div class="brand-name">
-                KymGio Salon
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#" class="logo" aria-label="KymGio Salon">
+            <img src="images/kymgio-logo.png" alt="KymGio Salon Logo">
+            <span class="logo-text">KymGio Salon</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#promos">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#promos">Promos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">
+                🌙 Dark
+            </button>
+            <a href="#contact" class="btn">Book Appointment</a>
+        </div>
+    </nav>
+
+    <!-- PAGE 1: HERO PAGE - KymGio logo added -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Beauty<br>for <span>Him & Her</span></h1>
+            <p>Premium salon services that bring out your best.</p>
+            <a href="#contact" class="btn">Book Your Appointment</a>
+        </div>
+        <div class="hero-image">
+            <img src="images/kymgio-logo.png" alt="KymGio Salon - Beauty for Him & Her">
+        </div>
+        <div class="hero-categories">
+            <div class="cat-item">
+                <img src="images/Hair.jpg" alt="Hair" class="cat-photo">
+                <span>Hair</span>
             </div>
+            <div class="cat-item">
+                <img src="images/Toupee.jpg" alt="Toupee" class="cat-photo">
+                <span>Toupee</span>
+            </div>
+            <div class="cat-item">
+                <img src="images/Nails.jpg" alt="Nails" class="cat-photo">
+                <span>Nails</span>
+            </div>
+            <div class="cat-item">
+                <img src="images/Foot Spa.jpg" alt="Foot Spa" class="cat-photo">
+                <span>Foot Spa</span>
+            </div>
+            <div class="cat-item">
+                <img src="images/Haircut Men.jpg" alt="Men Haircut" class="cat-photo">
+                <span>Men Haircut</span>
+            </div>
+        </div>
+    </section>
 
-
-            <!-- HAMBURGER -->
-            <button
-                class="hamburger"
-                id="hamburger"
-                aria-label="Open Menu"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
+    <!-- PAGE 2: PROMOTIONS & SERVICES -->
+    <section id="promos">
+        <div class="section-header">
+            <h2>Special Promotion</h2>
+            <div class="divider">♥</div>
         </div>
 
-
-        <!-- HEADER BUTTONS -->
-
-        <div class="header-actions">
-
-            <button
-                class="theme-btn"
-                id="themeToggle"
-            >
-                <span class="sun">☀️</span>
-                <span id="themeText">Light</span>
-            </button>
-
-
-            <button
-                class="header-book"
-                onclick="bookAppointment()"
-            >
-                BOOK APPOINTMENT
-            </button>
-
+        <div class="promo-banner">
+            <div class="promo-text">
+                <span class="badge">LIMITED TIME</span>
+                <h3>Get 1 Service FREE<br><span style="font-size: 18px; font-weight: normal;">when you avail 2 or more services!</span></h3>
+                <p>Enjoy Premium Service! Style Guide Package for FREE.</p>
+                <a href="#contact" class="btn">Learn More</a>
+            </div>
+            <div>
+                <svg viewBox="0 0 400 220" width="100%" height="220" style="border-radius:6px;">
+                    <rect width="100%" height="100%" fill="#1f1f1f"/>
+                    <circle cx="200" cy="110" r="60" fill="#e0e0e0" stroke="#e5a970" stroke-width="1"/>
+                    <text x="50%" y="55%" text-anchor="middle" fill="#e5a970" font-size="14">Special Offer Model</text>
+                </svg>
+            </div>
         </div>
 
+        <div class="section-header" style="margin-bottom: 30px;">
+            <h2>Our Services</h2>
+            <div class="divider">✦</div>
+        </div>
 
-        <!-- MOBILE MENU -->
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="images/Hair.jpg" alt="Hair Service" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+                <h4>Hair</h4>
+                <p>Hair treatments, color, rebounding, and more.</p>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="images/Toupee.jpg" alt="Toupee Service" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+                <h4>Toupee</h4>
+                <p>High-quality toupee for natural look & confidence.</p>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="images/Nails.jpg" alt="Nails Service" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+                <h4>Nails</h4>
+                <p>Manicure, pedicure, gel polish and nail art.</p>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="images/Foot Spa.jpg" alt="Foot Spa Service" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+                <h4>Foot Spa</h4>
+                <p>Relaxing foot spa for your ultimate comfort.</p>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="service-card">
+                <img src="images/Haircut Men.jpg" alt="Men Haircut" style="width:100%;height:120px;object-fit:cover;border-radius:6px;">
+                <h4>Men Haircut</h4>
+                <p>Stylish cuts and grooming for modern man.</p>
+                <a href="#contact" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-        <nav
-            class="mobile-menu"
-            id="mobileMenu"
-        >
+    <!-- PAGE 3: GALLERY -->
+    <section id="gallery">
+        <div class="section-header">
+            <h2>Gallery</h2>
+            <div class="divider">✦</div>
+        </div>
 
-            <a href="#home">
-                Home
-            </a>
+        <div class="gallery-filter">
+            <button class="filter-btn active">ALL</button>
+            <button class="filter-btn">HAIR</button>
+            <button class="filter-btn">NAILS</button>
+            <button class="filter-btn">MEN</button>
+            <button class="filter-btn">SPA</button>
+            <button class="filter-btn">TOUPEE</button>
+        </div>
 
-            <a href="#services">
-                Services
-            </a>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="images/Gallery1.jpg" alt="Gallery photo 1" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery2.jpg" alt="Gallery photo 2" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery3.jpg" alt="Gallery photo 3" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery4.jpg" alt="Gallery photo 4" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery5.jpg" alt="Gallery photo 5" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery6.jpg" alt="Gallery photo 6" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery7.jpg" alt="Gallery photo 7" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery8.jpg" alt="Gallery photo 8" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery9.jpg" alt="Gallery photo 9" class="gallery-photo"></div>
+            <div class="gallery-item"><img src="images/Gallery10.jpg" alt="Gallery photo 10" class="gallery-photo"></div>
+        </div>
 
-            <a href="#about">
-                About
-            </a>
+        <div style="text-align: center;">
+            <a href="#" class="btn">View More Photos</a>
+        </div>
+    </section>
 
-            <a href="#contact">
-                Contact
-            </a>
-
-        </nav>
-
-    </header>
-
-
-
-    <!-- =====================================
-         HERO
-    ====================================== -->
-
-    <main>
-
-        <section
-            class="hero"
-            id="home"
-        >
-
-
-            <!-- Decorative scissors -->
-
-            <img
-                src="images/scissors.png"
-                class="tool-decoration scissors"
-                alt=""
-            >
-
-
-            <!-- Decorative comb -->
-
-            <img
-                src="images/comb.png"
-                class="tool-decoration comb"
-                alt=""
-            >
-
-
-
-            <!-- HERO CONTENT -->
-
-            <div class="hero-content">
-
-
-                <div class="small-title">
-                    Beauty for
+    <!-- PAGE 4: ABOUT US & LOCATION -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                    <h2>About KymGio Salon</h2>
+                    <div class="divider" style="justify-content: flex-start;">♥</div>
                 </div>
+                <p>At KymGio Salon, we believe beauty is confidence. Our mission is to provide top-quality services in a relaxing and luxurious environment.</p>
+                <p>We use premium products and the latest techniques to bring out the best in you.</p>
 
-
-                <h1 class="main-title">
-                    Him &amp; Her
-                </h1>
-
-
-                <div class="divider">
-
-                    <div class="divider-line"></div>
-
-                    <div class="scissor-icon">
-                        ✂
+                <div class="features-row">
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 2L18 2M12 2V22"/></svg>
+                        Professional Stylists
                     </div>
-
-                    <div class="divider-line"></div>
-
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2L2 22h20Z"/></svg>
+                        Premium Products
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                        Relaxing Environment
+                    </div>
+                    <div class="feature-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+                        Satisfaction Guaranteed
+                    </div>
                 </div>
+            </div>
+            <div>
+                <div style="width:100%;height:300px;border-radius:6px;border:1px solid var(--border-color);background:#f2f2f2;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                    <img src="images/Interior.png" alt="Interior Salon View" style="width:100%;height:100%;object-fit:cover;object-position:center 80%;">
+                </div>
+            </div>
+        </div>
 
+        <div class="location-grid">
+            <div style="width: 100%; height: 260px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color);">
+                <iframe
+                    src="https://www.google.com/maps?q=Bued+East,+Calasiao,+Pangasinan+2418&output=embed"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="KymGio Salon Location Map">
+                </iframe>
+            </div>
+            <div>
+                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                    <h2>Our Location</h2>
+                    <div class="divider" style="justify-content: flex-start;">♥</div>
+                </div>
+                <ul class="info-list">
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                        Bued East, Calasiao, Pangasinan 2418
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        Mobile: 0918 283 2020
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Email: kymdomgas@kymgiosalon.com
+                    </li>
+                </ul>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Bued+East,+Calasiao,+Pangasinan+2418" target="_blank" rel="noopener" class="btn">Get Directions</a>
+            </div>
+        </div>
+    </section>
 
-                <p class="hero-description">
-                    Premium salon services
-                    <br>
-                    that bring out your best.
-                </p>
-
-
-                <button
-                    class="hero-book"
-                    onclick="bookAppointment()"
-                >
-                    BOOK YOUR APPOINTMENT
-                </button>
-
-
+    <!-- PAGE 5: BOOK APPOINTMENT / CONTACT -->
+    <section id="contact">
+        <div class="booking-grid">
+            <div>
+                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                    <h2>Book Your Appointment</h2>
+                    <div class="divider" style="justify-content: flex-start;">♥</div>
+                </div>
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>Select Service</option>
+                            <option>Hair Treatment</option>
+                            <option>Toupee</option>
+                            <option>Nails</option>
+                            <option>Foot Spa</option>
+                            <option>Men Haircut</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>Select Time</option>
+                            <option>09:00 AM</option>
+                            <option>11:00 AM</option>
+                            <option>01:00 PM</option>
+                            <option>03:00 PM</option>
+                            <option>05:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="Additional Notes (Optional)"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Confirm Booking</button>
+                </form>
             </div>
 
+            <div>
+                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                    <h2>Contact Us</h2>
+                    <div class="divider" style="justify-content: flex-start;">🔍</div>
+                </div>
+                <ul class="info-list">
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+                        Bued East, Calasiao, Pangasinan 2418
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        Mobile: 0918 283 2020
+                    </li>
+                    <li>
+                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Email: kymdomgas@kymgiosalon.com
+                    </li>
+                </ul>
 
+                <div class="hours-box">
+                    <h4>OPEN DAILY</h4>
+                    <p style="font-size: 16px; color: var(--text-light); font-weight: bold;">9:00 AM - 8:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <!-- MAIN HERO IMAGE -->
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            © 2025 KymGio Salon. All Rights Reserved.
+        </div>
+        <div class="social-links">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+        </div>
+    </footer>
 
-            <img
-                src="images/salon-couple.png"
-                class="hero-image"
-                alt="KymGio Salon"
-            >
-
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =====================================
-         JAVASCRIPT
-    ====================================== -->
 
     <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('kymgio-theme');
 
-        /* ==========================
-           MOBILE MENU
-        ========================== */
-
-        const hamburger =
-            document.getElementById("hamburger");
-
-        const mobileMenu =
-            document.getElementById("mobileMenu");
-
-
-        hamburger.addEventListener(
-            "click",
-            function () {
-
-                hamburger.classList.toggle("active");
-
-                mobileMenu.classList.toggle("show");
-
-            }
-        );
-
-
-        /* ==========================
-           CLOSE MENU AFTER CLICK
-        ========================== */
-
-        document
-            .querySelectorAll(".mobile-menu a")
-            .forEach(function(link) {
-
-                link.addEventListener(
-                    "click",
-                    function() {
-
-                        hamburger
-                            .classList
-                            .remove("active");
-
-                        mobileMenu
-                            .classList
-                            .remove("show");
-
-                    }
-                );
-
-            });
-
-
-        /* ==========================
-           LIGHT / DARK MODE
-        ========================== */
-
-        const themeToggle =
-            document.getElementById("themeToggle");
-
-        const themeText =
-            document.getElementById("themeText");
-
-
-        themeToggle.addEventListener(
-            "click",
-            function() {
-
-                document.body
-                    .classList
-                    .toggle("light-mode");
-
-
-                if (
-                    document.body
-                        .classList
-                        .contains("light-mode")
-                ) {
-
-                    themeText.textContent =
-                        "Dark";
-
-                } else {
-
-                    themeText.textContent =
-                        "Light";
-
-                }
-
-            }
-        );
-
-
-        /* ==========================
-           APPOINTMENT BUTTON
-        ========================== */
-
-        function bookAppointment() {
-
-            // Change this to your booking URL
-
-            window.location.href =
-                "#booking";
-
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
         }
 
-    </script>
+        function updateThemeButton() {
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+            themeToggle.setAttribute(
+                'aria-label',
+                isDark ? 'Switch to light mode' : 'Switch to dark mode'
+            );
+        }
 
+        updateThemeButton();
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('kymgio-theme', isDark ? 'dark' : 'light');
+
+            updateThemeButton();
+        });
+    </script>
 
 </body>
 </html>
