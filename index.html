@@ -1,971 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KymGio Salon</title>
-    <style>
-        :root {
-            --bg: #faf7f2;
-            --bg-card: #f2ece2;
-            --bg-mocha: #efe6da;
-            --text: #3a332c;
-            --text-muted: #8a8074;
-            --accent: #b98a4e;
-            --accent-hover: #a2753d;
-            --mocha: #8d6e63;
-            --border: #e6ddd0;
-            --font-serif: 'Playfair Display', Georgia, serif;
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: var(--font-sans);
-            line-height: 1.65;
-            scroll-behavior: smooth;
-        }
-
-        a { color: inherit; }
-
-        /* ---------- Navbar ---------- */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 8%;
-            background-color: rgba(250, 247, 242, 0.92);
-            backdrop-filter: blur(8px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo { display: flex; align-items: center; text-decoration: none; }
-
-        .logo img { width: 130px; height: 50px; object-fit: contain; display: block; }
-
-        .logo-text {
-            font-family: var(--font-serif);
-            font-size: 19px;
-            font-weight: 700;
-            color: var(--text);
-            margin-left: 10px;
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links > li { position: relative; }
-
-        .nav-links > li > a {
-            text-decoration: none;
-            font-size: 13px;
-            letter-spacing: 0.4px;
-            color: var(--text);
-            padding: 8px 0;
-        }
-
-        .nav-links > li > a:hover, .nav-links > li > a.active { color: var(--accent); }
-
-        .has-dropdown > a::after { content: " ▾"; font-size: 10px; color: var(--text-muted); }
-
-        .dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px 0;
-            min-width: 190px;
-            box-shadow: 0 12px 28px rgba(60, 51, 40, 0.08);
-        }
-
-        .has-dropdown:hover .dropdown { display: block; }
-
-        .dropdown a {
-            display: block;
-            padding: 9px 20px;
-            font-size: 13px;
-            text-decoration: none;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-
-        .dropdown a:hover { color: var(--accent); background: var(--bg-card); }
-
-        .nav-actions { display: flex; align-items: center; gap: 12px; }
-
-        .btn {
-            background-color: var(--accent);
-            color: #ffffff;
-            padding: 11px 22px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 12px;
-            letter-spacing: 0.6px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: background 0.25s;
-        }
-
-        .btn:hover { background-color: var(--accent-hover); }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-        }
-
-        .btn-outline:hover { background: var(--accent); color: #fff; }
-
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-        }
-
-        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-        @media (max-width: 960px) {
-            .nav-links { display: none; }
-            .logo-text { font-size: 15px; }
-            .logo img { width: 100px; height: 40px; }
-        }
-
-        /* ---------- Layout ---------- */
-        section { padding: 90px 8%; }
-
-        .section-eyebrow {
-            color: var(--accent);
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
-        }
-
-        .section-header { max-width: 640px; margin-bottom: 46px; }
-
-        .section-header.center { margin-left: auto; margin-right: auto; text-align: center; }
-
-        .section-header h2 {
-            font-family: var(--font-serif);
-            font-size: 34px;
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .section-header p { color: var(--text-muted); font-size: 14px; margin-top: 14px; }
-
-        .alt-bg { background-color: var(--bg-mocha); }
-
-        /* ---------- Hero ---------- */
-        .hero {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            align-items: center;
-            gap: 50px;
-            min-height: 72vh;
-        }
-
-        .hero-content .section-eyebrow { margin-bottom: 16px; }
-
-        .hero-content h1 {
-            font-family: var(--font-serif);
-            font-size: 50px;
-            font-weight: 600;
-            line-height: 1.15;
-            margin-bottom: 20px;
-        }
-
-        .hero-content h1 em { color: var(--accent); font-style: italic; }
-
-        .hero-content p {
-            color: var(--text-muted);
-            max-width: 420px;
-            margin-bottom: 30px;
-            font-size: 15px;
-        }
-
-        .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-        .hero-image {
-            border-radius: 12px;
-            overflow: hidden;
-            background: var(--bg-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 380px;
-        }
-
-        .hero-image img { width: 70%; max-width: 260px; height: auto; object-fit: contain; }
-
-        @media (max-width: 960px) {
-            .hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-content h1 { font-size: 38px; }
-        }
-
-        /* ---------- Services (Muse-style category groups) ---------- */
-        .service-group { margin-bottom: 64px; }
-
-        .service-group:last-child { margin-bottom: 0; }
-
-        .service-group-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .service-group-head h3 {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 600;
-        }
-
-        .service-group-head p { color: var(--text-muted); font-size: 13px; max-width: 420px; margin-top: 6px; }
-
-        .service-chip-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 14px;
-        }
-
-        .service-chip {
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        .service-chip:hover { border-color: var(--accent); color: var(--accent); }
-
-        .service-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .service-card img { width: 100%; height: 170px; object-fit: cover; display: block; }
-
-        .service-card-body { padding: 20px; }
-
-        .service-card-body h4 { font-size: 15px; margin-bottom: 8px; }
-
-        .service-card-body p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
-
-        .service-card-body a {
-            font-size: 12px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .service-card-body a:hover { text-decoration: underline; }
-
-        @media (max-width: 900px) {
-            .service-cards { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 600px) {
-            .service-cards { grid-template-columns: 1fr; }
-        }
-
-        /* ---------- About / Discover ---------- */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 54px;
-            align-items: center;
-        }
-
-        .about-photo {
-            border-radius: 12px;
-            overflow: hidden;
-            height: 340px;
-        }
-
-        .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 80%; }
-
-        .about-text p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; }
-
-        .features-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-top: 28px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 12.5px;
-            color: var(--text);
-        }
-
-        .feature-item svg { fill: var(--accent); flex-shrink: 0; }
-
-        @media (max-width: 900px) {
-            .about-grid { grid-template-columns: 1fr; }
-        }
-
-        /* ---------- Location ---------- */
-        .location-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .location-map { min-height: 340px; }
-        .location-map iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-        .location-details { padding: 40px; }
-
-        .location-details h3 { font-family: var(--font-serif); font-size: 22px; margin-bottom: 18px; }
-
-        .hours-table { width: 100%; font-size: 13px; margin: 18px 0 24px 0; }
-
-        .hours-table tr { border-bottom: 1px solid var(--border); }
-
-        .hours-table td { padding: 8px 0; }
-
-        .hours-table td:last-child { text-align: right; color: var(--text-muted); }
-
-        .info-list { list-style: none; margin-bottom: 22px; }
-
-        .info-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .info-list svg { fill: var(--accent); flex-shrink: 0; }
-
-        @media (max-width: 900px) {
-            .location-card { grid-template-columns: 1fr; }
-            .location-map { height: 260px; }
-        }
-
-        /* ---------- Gallery ---------- */
-        .gallery-filter {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 34px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 7px 18px;
-            font-size: 11px;
-            border-radius: 20px;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 14px;
-            margin-bottom: 34px;
-        }
-
-        .gallery-photo {
-            width: 100%;
-            height: 155px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-        }
-
-        @media (max-width: 900px) {
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* ---------- Testimonials ---------- */
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .testimonial-card {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 28px;
-        }
-
-        .testimonial-stars { color: var(--accent); font-size: 13px; margin-bottom: 14px; }
-
-        .testimonial-card p { font-size: 13.5px; color: var(--text-muted); margin-bottom: 18px; }
-
-        .testimonial-name { font-size: 13px; font-weight: 600; }
-
-        @media (max-width: 900px) {
-            .testimonial-grid { grid-template-columns: 1fr; }
-        }
-
-        /* ---------- Subscribe ---------- */
-        .subscribe-box {
-            background: var(--mocha);
-            color: #fdf9f4;
-            border-radius: 14px;
-            padding: 50px 8%;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .subscribe-box h3 { font-family: var(--font-serif); font-size: 24px; margin-bottom: 10px; }
-
-        .subscribe-box p { font-size: 13px; opacity: 0.85; max-width: 420px; }
-
-        .subscribe-form { display: flex; gap: 10px; }
-
-        .subscribe-form input {
-            flex: 1;
-            padding: 13px 16px;
-            border-radius: 4px;
-            border: none;
-            font-size: 13px;
-        }
-
-        .subscribe-form .btn { background: #fdf9f4; color: var(--mocha); }
-        .subscribe-form .btn:hover { background: #fff; }
-
-        .subscribe-note { font-size: 11px; opacity: 0.7; margin-top: 10px; }
-
-        @media (max-width: 900px) {
-            .subscribe-box { grid-template-columns: 1fr; text-align: center; }
-            .subscribe-form { flex-direction: column; }
-        }
-
-        /* ---------- Booking / Contact ---------- */
-        .booking-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
-        }
-
-        .form-group { margin-bottom: 16px; }
-
-        .form-control {
-            width: 100%;
-            padding: 13px;
-            background-color: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            color: var(--text);
-            font-size: 13px;
-        }
-
-        .form-control:focus { outline: none; border-color: var(--accent); }
-
-        .hours-box {
-            background-color: #ffffff;
-            border: 1px solid var(--border);
-            padding: 26px;
-            border-radius: 10px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .hours-box h4 { color: var(--accent); font-size: 12px; letter-spacing: 1px; margin-bottom: 8px; }
-
-        @media (max-width: 960px) {
-            .booking-grid { grid-template-columns: 1fr; }
-        }
-
-        /* ---------- Footer ---------- */
-        footer {
-            background: var(--text);
-            color: #cfc7ba;
-            padding: 60px 8% 30px 8%;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h5 {
-            color: #ffffff;
-            font-size: 13px;
-            letter-spacing: 0.6px;
-            margin-bottom: 16px;
-        }
-
-        .footer-col a {
-            display: block;
-            font-size: 12.5px;
-            color: #cfc7ba;
-            text-decoration: none;
-            margin-bottom: 10px;
-        }
-
-        .footer-col a:hover { color: var(--accent); }
-
-        .footer-brand p { font-size: 12.5px; margin: 14px 0 18px 0; max-width: 260px; opacity: 0.85; }
-
-        .social-links { display: flex; gap: 14px; }
-
-        .social-links svg { fill: #cfc7ba; cursor: pointer; transition: fill 0.25s; }
-
-        .social-links svg:hover { fill: var(--accent); }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.12);
-            padding-top: 22px;
-            font-size: 11.5px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            opacity: 0.75;
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 560px) {
-            .footer-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KymGio Salon — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;600;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --ink: #1c1712;
+        --muted: #6f645a;
+        --gold: #c9974f;
+        --gold-soft: #e0b578;
+        --bg-a: #f8ede0;
+        --bg-b: #efdcc8;
+    }
+
+    body {
+        font-family: 'Montserrat', system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--bg-a);
+    }
+
+    .hero-wrap {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(120deg, #faf1e6 0%, var(--bg-a) 45%, var(--bg-b) 100%);
+    }
+
+    /* ---------- Decorative line-art background ---------- */
+    .deco { position: absolute; fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: 0.14; }
+    .deco.gold { stroke: var(--gold); opacity: 0.4; }
+
+    .deco-scissors-left { width: 150px; left: 10px; top: 220px; transform: rotate(-15deg); }
+    .deco-comb-left { width: 90px; left: 20px; top: 70px; transform: rotate(10deg); }
+    .deco-leaf-left { width: 130px; left: -10px; bottom: 20px; }
+    .deco-dryer-right { width: 180px; right: 20px; top: 40px; transform: rotate(8deg); }
+    .deco-comb-right { width: 150px; right: 10px; bottom: 40px; transform: rotate(-12deg); }
+
+    @media (max-width: 900px) {
+        .deco { display: none; }
+    }
+
+    /* ---------- Navbar ---------- */
+    .navbar {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+
+    .logo-mark { width: 44px; height: 44px; flex-shrink: 0; }
+
+    .logo-text-group { line-height: 1.05; }
+
+    .logo-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 800;
+        font-size: 22px;
+        color: var(--ink);
+        display: block;
+    }
+
+    .logo-sub {
+        font-size: 10.5px;
+        letter-spacing: 3px;
+        color: var(--gold);
+        font-weight: 600;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        list-style: none;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--ink);
+        font-size: 12.5px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+    }
+
+    .nav-links a.active {
+        color: var(--ink);
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--gold);
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--ink);
+        color: #fff;
+        border: none;
+        padding: 13px 24px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .nav-cta svg { width: 14px; height: 14px; fill: #fff; }
+
+    @media (max-width: 1100px) {
+        .nav-links { display: none; }
+    }
+
+    /* ---------- Hero content ---------- */
+    .hero {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 40px;
+        padding: 40px 5% 0 5%;
+        min-height: 640px;
+    }
+
+    .hero-copy { padding-bottom: 60px; }
+
+    .script-line {
+        font-family: 'Dancing Script', cursive;
+        font-weight: 700;
+        font-size: 44px;
+        color: var(--gold);
+        margin-bottom: -6px;
+        display: block;
+    }
+
+    .headline {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 52px;
+        line-height: 1.08;
+        letter-spacing: -0.5px;
+        color: var(--ink);
+        margin-bottom: 22px;
+    }
+
+    .divider-scissor {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 220px;
+        margin-bottom: 26px;
+    }
+
+    .divider-scissor .line { flex: 1; height: 1px; background: var(--gold-soft); }
+    .divider-scissor svg { width: 16px; height: 16px; fill: var(--gold); flex-shrink: 0; }
+
+    .hero-copy p.lead {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 400px;
+        margin-bottom: 34px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-solid, .btn-line {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 28px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-solid { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
+    .btn-solid:hover { background: #000; }
+    .btn-solid svg { width: 14px; height: 14px; fill: #fff; }
+
+    .btn-line { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+    .btn-line:hover { background: var(--ink); color: #fff; }
+
+    /* ---------- Hero image ---------- */
+    .hero-visual {
+        position: relative;
+        height: 640px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .hero-photo-frame {
+        width: 100%;
+        height: 92%;
+        border-radius: 16px 16px 0 0;
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(160deg, #ddc4a6, #cfa877);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 18%);
+        mask-image: linear-gradient(90deg, transparent 0%, black 18%);
+    }
+
+    .hero-photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+    }
+
+    .hero-photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: rgba(28, 23, 18, 0.55);
+        font-size: 13px;
+        padding: 0 40px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; padding-top: 20px; min-height: auto; }
+        .hero-visual { height: 340px; margin-top: 20px; }
+        .headline { font-size: 38px; }
+        .script-line { font-size: 34px; }
+    }
+</style>
 </head>
 <body>
 
+<div class="hero-wrap">
+
+    <!-- Decorative background line art -->
+    <svg class="deco deco-comb-left" viewBox="0 0 90 140" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 20 Q14 8 26 12 L74 30 Q84 34 79 46 L64 78 Q60 88 50 84 L18 68 Q6 62 10 46 Z"/>
+        <path d="M22 18 L14 48"/><path d="M32 22 L24 52"/><path d="M42 26 L34 56"/>
+        <path d="M52 30 L44 60"/><path d="M62 34 L54 64"/>
+    </svg>
+
+    <svg class="deco gold deco-scissors-left" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="35" cy="105" r="20"/>
+        <circle cx="80" cy="105" r="20"/>
+        <path d="M50 90 L130 20"/>
+        <path d="M65 90 L130 55"/>
+        <path d="M58 105 L130 20"/>
+    </svg>
+
+    <svg class="deco deco-leaf-left" viewBox="0 0 130 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 150 C10 100 30 60 70 30 C55 70 55 110 80 140"/>
+        <path d="M35 145 C28 105 45 75 75 50"/>
+        <path d="M15 130 C20 95 40 70 60 55"/>
+    </svg>
+
+    <svg class="deco deco-dryer-right" viewBox="0 0 180 140" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 40 a35 35 0 1 1 0 60 L20 100 L10 90 L30 65 a35 35 0 0 1 10 -25 Z"/>
+        <rect x="0" y="86" width="24" height="16" rx="4"/>
+        <path d="M150 40 L170 30 M155 55 L178 50 M150 70 L172 72"/>
+    </svg>
+
+    <svg class="deco deco-comb-right" viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 30 Q16 15 30 20 L130 45 Q142 49 136 63 L120 88 Q114 98 102 93 L20 68 Q8 63 10 48 Z"/>
+        <path d="M25 26 L18 62"/><path d="M40 30 L33 66"/><path d="M55 34 L48 70"/>
+        <path d="M70 38 L63 74"/><path d="M85 42 L78 78"/><path d="M100 46 L93 82"/>
+    </svg>
+
     <!-- NAVBAR -->
     <nav class="navbar">
-        <a href="#hero" class="logo" aria-label="KymGio Salon">
-            <img src="images/kymgio-logo.png" alt="KymGio Salon Logo">
-            <span class="logo-text">KymGio Salon</span>
+        <a href="#" class="logo">
+            <svg class="logo-mark" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30 8 C20 8 13 16 13 26 C13 34 17 40 17 48 C17 51 19 53 22 53" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M30 8 C40 8 47 16 47 26 C47 32 45 36 43 40" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="30" cy="24" r="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+                <path d="M22 30 C22 40 20 44 16 50" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M38 30 C39 38 42 42 44 48" fill="none" stroke="var(--gold)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <span class="logo-text-group">
+                <span class="logo-title">KymGio</span>
+                <span class="logo-sub">SALON</span>
+            </span>
         </a>
         <ul class="nav-links">
-            <li><a href="#hero" class="active">Home</a></li>
-            <li class="has-dropdown">
-                <a href="#services">Services</a>
-                <div class="dropdown">
-                    <a href="#services">Hair</a>
-                    <a href="#services">Toupee</a>
-                    <a href="#services">Men Haircut</a>
-                    <a href="#services">Nails</a>
-                    <a href="#services">Foot Spa</a>
-                </div>
-            </li>
-            <li class="has-dropdown">
-                <a href="#about">About</a>
-                <div class="dropdown">
-                    <a href="#about">About Us</a>
-                    <a href="#location">Location &amp; Hours</a>
-                </div>
-            </li>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#stylists">Our Stylists</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#reviews">Reviews</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="nav-actions">
-            <a href="#contact" class="btn">Book Now</a>
-        </div>
+        <a href="#contact" class="nav-cta">
+            Book Now
+            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+        </a>
     </nav>
 
     <!-- HERO -->
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <div class="section-eyebrow">Calasiao, Pangasinan</div>
-            <h1>Discover the <em>beauty</em><br>within you</h1>
-            <p>KymGio Salon is your neighborhood destination for hair, nails, and spa care — for him and her. Come in for a fresh look, leave feeling like your best self.</p>
+    <div class="hero">
+        <div class="hero-copy">
+            <span class="script-line">Beauty that</span>
+            <h1 class="headline">INSPIRES<br>CONFIDENCE</h1>
+            <div class="divider-scissor">
+                <div class="line"></div>
+                <svg viewBox="0 0 24 24"><path d="M9.6 12L2 4.4 3.4 3l7.6 7.6L18.6 3 20 4.4 12.4 12l7.6 7.6-1.4 1.4-7.6-7.6L3.4 21 2 19.6z"/></svg>
+                <div class="line"></div>
+            </div>
+            <p class="lead">Experience premium hair care and styling designed to bring out the best in you.</p>
             <div class="hero-actions">
-                <a href="#contact" class="btn">Book Your Appointment</a>
-                <a href="#services" class="btn btn-ghost">View Services</a>
+                <a href="#contact" class="btn-solid">
+                    BOOK AN APPOINTMENT
+                    <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                </a>
+                <a href="#services" class="btn-line">OUR SERVICES</a>
             </div>
         </div>
-        <div class="hero-image">
-            <img src="images/kymgio-logo.png" alt="KymGio Salon - Beauty for Him & Her">
-        </div>
-    </section>
-
-    <!-- SERVICES (Muse-style grouped categories) -->
-    <section id="services" class="alt-bg">
-        <div class="section-header center">
-            <div class="section-eyebrow">What we offer</div>
-            <h2>Salon &amp; Spa Services</h2>
-            <p>Talented stylists and therapists meet the unique needs of every client, so you feel recharged and look your best — whether you're here for a quick trim or a full transformation.</p>
-        </div>
-
-        <div class="service-group">
-            <div class="service-group-head">
-                <div>
-                    <h3>Salon Services</h3>
-                    <p>Hair, styling, and grooming for every look you're after.</p>
-                </div>
-                <div class="service-chip-row">
-                    <a href="#contact" class="service-chip">Hair</a>
-                    <a href="#contact" class="service-chip">Toupee</a>
-                    <a href="#contact" class="service-chip">Men Haircut</a>
-                </div>
-            </div>
-            <div class="service-cards">
-                <div class="service-card">
-                    <img src="images/Hair.jpg" alt="Hair Service">
-                    <div class="service-card-body">
-                        <h4>Hair</h4>
-                        <p>Hair treatments, color, rebonding, and more.</p>
-                        <a href="#contact">Book this service →</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <img src="images/Toupee.jpg" alt="Toupee Service">
-                    <div class="service-card-body">
-                        <h4>Toupee</h4>
-                        <p>High-quality toupee for a natural look and confidence.</p>
-                        <a href="#contact">Book this service →</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <img src="images/Haircut Men.jpg" alt="Men Haircut">
-                    <div class="service-card-body">
-                        <h4>Men Haircut</h4>
-                        <p>Stylish cuts and grooming for the modern man.</p>
-                        <a href="#contact">Book this service →</a>
-                    </div>
+        <div class="hero-visual">
+            <div class="hero-photo-frame">
+                <!-- Replace with a real portrait, e.g. images/hero-model.jpg -->
+                <div class="hero-photo-placeholder">
+                    Drop a portrait photo here — a client or stylist with the hair on display works well.<br>Recommended file: images/hero-model.jpg
                 </div>
             </div>
         </div>
-
-        <div class="service-group">
-            <div class="service-group-head">
-                <div>
-                    <h3>Spa Services</h3>
-                    <p>Relaxing treatments for hands, feet, and everything in between.</p>
-                </div>
-                <div class="service-chip-row">
-                    <a href="#contact" class="service-chip">Nails</a>
-                    <a href="#contact" class="service-chip">Foot Spa</a>
-                </div>
-            </div>
-            <div class="service-cards" style="grid-template-columns: repeat(2, 1fr); max-width: 700px;">
-                <div class="service-card">
-                    <img src="images/Nails.jpg" alt="Nails Service">
-                    <div class="service-card-body">
-                        <h4>Nails</h4>
-                        <p>Manicure, pedicure, gel polish and nail art.</p>
-                        <a href="#contact">Book this service →</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <img src="images/Foot Spa.jpg" alt="Foot Spa Service">
-                    <div class="service-card-body">
-                        <h4>Foot Spa</h4>
-                        <p>Relaxing foot spa for your ultimate comfort.</p>
-                        <a href="#contact">Book this service →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="about-grid">
-            <div class="about-text">
-                <div class="section-eyebrow">Our story</div>
-                <h2 style="font-family: var(--font-serif); font-size: 30px; font-weight: 600; margin-bottom: 18px;">About KymGio Salon</h2>
-                <p>At KymGio Salon, we believe beauty is confidence. Our mission is to provide top-quality services in a relaxing and welcoming environment, for anyone who walks through our doors.</p>
-                <p>We use premium products and up-to-date techniques to bring out the best in you — because it's not just about looking good, it's about feeling like yourself again.</p>
-                <div class="features-row">
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 2L18 2M12 2V22"/></svg>
-                        Professional Stylists
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2L2 22h20Z"/></svg>
-                        Premium Products
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-                        Relaxing Environment
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
-                        Satisfaction Guaranteed
-                    </div>
-                </div>
-            </div>
-            <div class="about-photo">
-                <img src="images/Interior.png" alt="Interior Salon View">
-            </div>
-        </div>
-    </section>
-
-    <!-- LOCATION -->
-    <section id="location" class="alt-bg">
-        <div class="section-header center">
-            <div class="section-eyebrow">Visit us</div>
-            <h2>Our Location</h2>
-        </div>
-        <div class="location-card">
-            <div class="location-map">
-                <iframe
-                    src="https://www.google.com/maps?q=Bued+East,+Calasiao,+Pangasinan+2418&output=embed"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="KymGio Salon Location Map">
-                </iframe>
-            </div>
-            <div class="location-details">
-                <h3>KymGio Salon</h3>
-                <table class="hours-table">
-                    <tr><td>Monday – Saturday</td><td>9:00 AM – 8:00 PM</td></tr>
-                    <tr><td>Sunday</td><td>9:00 AM – 8:00 PM</td></tr>
-                </table>
-                <ul class="info-list">
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-                        Bued East, Calasiao, Pangasinan 2418
-                    </li>
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        0918 283 2020
-                    </li>
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        kymdomgas@kymgiosalon.com
-                    </li>
-                </ul>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Bued+East,+Calasiao,+Pangasinan+2418" target="_blank" rel="noopener" class="btn btn-outline">Get Directions</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section id="gallery">
-        <div class="section-header center">
-            <div class="section-eyebrow">Our work</div>
-            <h2>Gallery</h2>
-            <p>Step into a world of style — each photo captures the artistry and care that goes into every visit to KymGio Salon.</p>
-        </div>
-
-        <div class="gallery-filter">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Hair</button>
-            <button class="filter-btn">Nails</button>
-            <button class="filter-btn">Men</button>
-            <button class="filter-btn">Spa</button>
-            <button class="filter-btn">Toupee</button>
-        </div>
-
-        <div class="gallery-grid">
-            <img src="images/Gallery1.jpg" alt="Gallery photo 1" class="gallery-photo">
-            <img src="images/Gallery2.jpg" alt="Gallery photo 2" class="gallery-photo">
-            <img src="images/Gallery3.jpg" alt="Gallery photo 3" class="gallery-photo">
-            <img src="images/Gallery4.jpg" alt="Gallery photo 4" class="gallery-photo">
-            <img src="images/Gallery5.jpg" alt="Gallery photo 5" class="gallery-photo">
-            <img src="images/Gallery6.jpg" alt="Gallery photo 6" class="gallery-photo">
-            <img src="images/Gallery7.jpg" alt="Gallery photo 7" class="gallery-photo">
-            <img src="images/Gallery8.jpg" alt="Gallery photo 8" class="gallery-photo">
-            <img src="images/Gallery9.jpg" alt="Gallery photo 9" class="gallery-photo">
-            <img src="images/Gallery10.jpg" alt="Gallery photo 10" class="gallery-photo">
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section id="testimonials" class="alt-bg">
-        <div class="section-header center">
-            <div class="section-eyebrow">Notes from our clients</div>
-            <h2>What people say</h2>
-            <p>Real experiences from the people who trust us with their hair, nails, and self-care.</p>
-        </div>
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p>"Ang galing ng staff, sobrang bait at professional. Sulit yung service, babalik ako next month!"</p>
-                <div class="testimonial-name">Maricel D.</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p>"Best haircut I've had in Calasiao. Clean, relaxing, and the stylist really listened to what I wanted."</p>
-                <div class="testimonial-name">Jerome T.</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p>"Nagpa-foot spa ako after a long week and sobrang ganda ng feeling. Worth it talaga!"</p>
-                <div class="testimonial-name">Angel R.</div>
-            </div>
-        </div>
-        <div style="text-align:center; margin-top: 34px;">
-            <a href="#contact" class="btn btn-outline">Leave Us a Review</a>
-        </div>
-    </section>
-
-    <!-- SUBSCRIBE -->
-    <section>
-        <div class="subscribe-box">
-            <div>
-                <h3>Stay in the loop</h3>
-                <p>Get first dibs on promos, new services, and salon updates. No spam — just the good stuff.</p>
-            </div>
-            <div>
-                <form class="subscribe-form" onsubmit="event.preventDefault();">
-                    <input type="email" placeholder="Your email address" required>
-                    <button type="submit" class="btn">Subscribe</button>
-                </form>
-                <div class="subscribe-note">This form is a placeholder — connect it to an email tool like Mailchimp or Brevo to actually collect signups.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT / BOOKING -->
-    <section id="contact">
-        <div class="section-header center">
-            <div class="section-eyebrow">Ready when you are</div>
-            <h2>Book Your Appointment</h2>
-        </div>
-        <div class="booking-grid">
-            <div>
-                <form onsubmit="event.preventDefault();">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option>Select Service</option>
-                            <option>Hair Treatment</option>
-                            <option>Toupee</option>
-                            <option>Men Haircut</option>
-                            <option>Nails</option>
-                            <option>Foot Spa</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control">
-                            <option>Select Time</option>
-                            <option>09:00 AM</option>
-                            <option>11:00 AM</option>
-                            <option>01:00 PM</option>
-                            <option>03:00 PM</option>
-                            <option>05:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Additional Notes (Optional)"></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Confirm Booking</button>
-                </form>
-            </div>
-            <div>
-                <ul class="info-list">
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-                        Bued East, Calasiao, Pangasinan 2418
-                    </li>
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        0918 283 2020
-                    </li>
-                    <li>
-                        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        kymdomgas@kymgiosalon.com
-                    </li>
-                </ul>
-                <div class="hours-box">
-                    <h4>Open Daily</h4>
-                    <p style="font-size: 16px; color: var(--text); font-weight: bold;">9:00 AM – 8:00 PM</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <img src="images/kymgio-logo.png" alt="KymGio Salon" style="width:110px; height:auto;">
-                <p>Beauty for him and her — hair, nails, and spa care in Calasiao, Pangasinan.</p>
-                <div class="social-links">
-                    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h5>Explore</h5>
-                <a href="#hero">Home</a>
-                <a href="#services">Services</a>
-                <a href="#about">About Us</a>
-                <a href="#gallery">Gallery</a>
-            </div>
-            <div class="footer-col">
-                <h5>Visit</h5>
-                <a href="#location">Location &amp; Hours</a>
-                <a href="#testimonials">Reviews</a>
-                <a href="#contact">Book an Appointment</a>
-            </div>
-            <div class="footer-col">
-                <h5>Contact</h5>
-                <a href="tel:09182832020">0918 283 2020</a>
-                <a href="mailto:kymdomgas@kymgiosalon.com">kymdomgas@kymgiosalon.com</a>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=Bued+East,+Calasiao,+Pangasinan+2418" target="_blank" rel="noopener">Get Directions</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div>© 2025 KymGio Salon. All Rights Reserved.</div>
-            <div>Designed with care in Calasiao, Pangasinan.</div>
-        </div>
-    </footer>
+    </div>
+</div>
 
 </body>
 </html>
