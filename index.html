@@ -642,9 +642,248 @@
                 height: 90px;
             }
         }
+
+        /* =========================================================
+           KYMGIO SALON — SUBTLE SALON-THEMED BACKGROUND
+           ========================================================= */
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse at 0% 0%, rgba(229, 169, 112, 0.22) 0%, transparent 35%),
+                radial-gradient(ellipse at 100% 15%, rgba(224, 190, 153, 0.20) 0%, transparent 34%),
+                radial-gradient(ellipse at 85% 85%, rgba(229, 169, 112, 0.16) 0%, transparent 38%),
+                radial-gradient(ellipse at 15% 70%, rgba(247, 225, 204, 0.22) 0%, transparent 36%),
+                linear-gradient(120deg, #ffffff 0%, #fff9f3 38%, #f8eee3 72%, #fffaf6 100%);
+            background-attachment: fixed;
+        }
+
+        /* Keeps the decorative artwork behind all website content */
+        .salon-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .salon-background svg {
+            position: absolute;
+            fill: none;
+            stroke: var(--accent-gold);
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .salon-bg-scissors-left {
+            width: 220px;
+            left: -35px;
+            top: 155px;
+            opacity: 0.18;
+            transform: rotate(-18deg);
+        }
+
+        .salon-bg-comb-right {
+            width: 245px;
+            right: -45px;
+            top: 180px;
+            opacity: 0.15;
+            transform: rotate(14deg);
+        }
+
+        .salon-bg-hair-left {
+            width: 300px;
+            left: -80px;
+            bottom: 7%;
+            opacity: 0.12;
+        }
+
+        .salon-bg-hair-right {
+            width: 330px;
+            right: -85px;
+            bottom: 18%;
+            opacity: 0.12;
+            transform: rotate(-8deg);
+        }
+
+        .salon-bg-small-scissors {
+            width: 120px;
+            right: 18%;
+            top: 44%;
+            opacity: 0.08;
+            transform: rotate(25deg);
+        }
+
+        /* Let the gradient show through the sections */
+        section {
+            position: relative;
+            z-index: 1;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.38), rgba(255,249,243,0.18));
+        }
+
+        #hero {
+            background:
+                radial-gradient(circle at 82% 42%, rgba(229,169,112,0.14), transparent 30%),
+                linear-gradient(120deg, rgba(255,255,255,0.42), rgba(248,238,227,0.24));
+        }
+
+        #promos {
+            background:
+                radial-gradient(circle at 10% 20%, rgba(229,169,112,0.10), transparent 25%),
+                linear-gradient(180deg, rgba(255,255,255,0.30), rgba(250,241,232,0.28));
+        }
+
+        #gallery {
+            background:
+                radial-gradient(circle at 90% 70%, rgba(229,169,112,0.09), transparent 28%),
+                rgba(255,255,255,0.18);
+        }
+
+        #about {
+            background:
+                radial-gradient(circle at 8% 80%, rgba(229,169,112,0.10), transparent 28%),
+                linear-gradient(135deg, rgba(255,255,255,0.25), rgba(248,238,227,0.24));
+        }
+
+        #contact {
+            background:
+                radial-gradient(circle at 90% 15%, rgba(229,169,112,0.12), transparent 28%),
+                linear-gradient(180deg, rgba(255,255,255,0.22), rgba(248,238,227,0.28));
+        }
+
+        .navbar,
+        footer {
+            position: relative;
+            z-index: 10;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .promo-banner,
+        .service-card,
+        .hours-box,
+        .form-control {
+            background: rgba(247, 247, 247, 0.78);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(80, 55, 35, 0.08);
+            border-color: rgba(229, 169, 112, 0.55);
+        }
+
+        /* Dark-mode version */
+        body.dark-mode {
+            background:
+                radial-gradient(ellipse at 0% 0%, rgba(229,169,112,0.16), transparent 32%),
+                radial-gradient(ellipse at 100% 15%, rgba(229,169,112,0.12), transparent 30%),
+                radial-gradient(ellipse at 85% 85%, rgba(229,169,112,0.09), transparent 35%),
+                linear-gradient(125deg, #080808 0%, #12100e 48%, #1b1511 100%);
+        }
+
+        body.dark-mode section {
+            background:
+                linear-gradient(180deg, rgba(18,16,15,0.35), rgba(11,11,11,0.18));
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(17, 17, 17, 0.90);
+        }
+
+        body.dark-mode .promo-banner,
+        body.dark-mode .service-card,
+        body.dark-mode .hours-box,
+        body.dark-mode .form-control {
+            background: rgba(20, 20, 20, 0.82);
+        }
+
+        @media (max-width: 900px) {
+            .salon-bg-scissors-left {
+                width: 150px;
+                left: -55px;
+                opacity: 0.065;
+            }
+
+            .salon-bg-comb-right {
+                width: 170px;
+                right: -65px;
+                opacity: 0.06;
+            }
+
+            .salon-bg-hair-left,
+            .salon-bg-hair-right,
+            .salon-bg-small-scissors {
+                opacity: 0.035;
+            }
+        }
+
     </style>
 </head>
 <body>
+
+
+    <!-- SUBTLE SALON-THEMED DECORATIVE BACKGROUND -->
+    <div class="salon-background" aria-hidden="true">
+        <!-- Large scissors -->
+        <svg class="salon-bg-scissors-left" viewBox="0 0 220 220">
+            <circle cx="55" cy="150" r="30"/>
+            <circle cx="115" cy="150" r="30"/>
+            <path d="M75 132 L174 42"/>
+            <path d="M95 132 L174 82"/>
+            <path d="M174 42 L198 20"/>
+            <path d="M174 82 L198 104"/>
+            <path d="M86 151 L174 42"/>
+        </svg>
+
+        <!-- Comb -->
+        <svg class="salon-bg-comb-right" viewBox="0 0 245 180">
+            <path d="M28 45 Q35 25 55 30 L220 82 Q235 87 228 103 L205 150 Q200 162 187 157 L35 105 Q18 99 22 82 Z"/>
+            <path d="M58 39 L43 85"/>
+            <path d="M75 44 L60 91"/>
+            <path d="M92 49 L77 96"/>
+            <path d="M109 54 L94 102"/>
+            <path d="M126 59 L111 107"/>
+            <path d="M143 64 L128 112"/>
+            <path d="M160 69 L145 117"/>
+            <path d="M177 74 L162 122"/>
+            <path d="M194 79 L179 127"/>
+        </svg>
+
+        <!-- Flowing hair strands -->
+        <svg class="salon-bg-hair-left" viewBox="0 0 300 260">
+            <path d="M250 15 C165 35 190 90 115 115 C55 135 90 205 10 245"/>
+            <path d="M270 35 C185 55 210 105 135 135 C75 160 105 215 30 258"/>
+            <path d="M285 62 C205 78 225 125 150 154 C105 173 125 225 60 260"/>
+            <path d="M235 78 C175 100 185 135 125 165 C90 183 100 220 55 240"/>
+        </svg>
+
+        <svg class="salon-bg-hair-right" viewBox="0 0 330 280">
+            <path d="M20 20 C120 45 90 110 185 135 C255 154 215 225 320 265"/>
+            <path d="M5 48 C105 72 75 135 170 160 C240 180 200 245 305 278"/>
+            <path d="M35 80 C120 100 105 155 185 180 C235 196 225 245 285 270"/>
+            <path d="M70 35 C135 62 125 112 195 138 C240 155 235 205 290 235"/>
+        </svg>
+
+        <!-- Small scissors accent -->
+        <svg class="salon-bg-small-scissors" viewBox="0 0 120 120">
+            <circle cx="34" cy="83" r="17"/>
+            <circle cx="68" cy="83" r="17"/>
+            <path d="M45 70 L100 18"/>
+            <path d="M57 70 L100 42"/>
+        </svg>
+    </div>
 
     <!-- NAVBAR -->
     <nav class="navbar">
